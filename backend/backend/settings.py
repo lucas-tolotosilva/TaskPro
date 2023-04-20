@@ -77,14 +77,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'USER': 'root',
-        'PASSOWRD': 'root',
-        'NAME': 'taskpro',
-        'OPTIONS': {
-            'init_comand': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        'NAME': 'mydb',
+        'USER': 'lucasdev',
+        'PASSWORD': 'lucas123',
+        'HOST':'localhost',
+        'PORT':'3306',
     }
 }
 
@@ -113,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
