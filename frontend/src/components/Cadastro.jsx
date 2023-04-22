@@ -1,13 +1,13 @@
 import React from 'react'
 
-export function Login() {
+export function Cadastro() {
     return (
         <div className='w-[800px] h-[500px] bg-[#ecffd8] flex'>
             <div className='w-1/3 bg-[#408d89] text-white text-[40px] gap-20 font-bold font-poppins flex flex-col justify-center items-center shadow-lg'>
-                <span>Log in</span>
+                <span>Inscreva-se</span>
                 <div className='text-white text-[15px] font-normal font-poppins flex flex-col justify-center items-center'>
-                    <span className='text-center text-[12px]'>Se ainda não tem <br /> conta clique no botão abaixo</span>
-                    <button className='rounded-full mt-4 bg-white px-4 py-1 text-[#408d89]'>Cadastre-se</button>
+                    <span className='text-center text-[12px]'>Se já tem conta<br /> clique no botão abaixo</span>
+                    <button className='rounded-full mt-4 bg-white px-4 py-1 text-[#408d89]'>Log in</button>
                 </div>
 
             </div>
@@ -20,8 +20,10 @@ export function Login() {
                     <span className='font-normal text-[#5c5c5c]'>_Email</span>
                     <input className='py-2 pl-2 mt-2 outline-none active:text-slate-400 rounded-full shadow-md shadow-[#c8c8c8]' placeholder='ex.: joao@gmail.com' type="text" id="email" name="email" />
                 </div>
-
-                <button className='bg-[#408d89] text-white w-1/5 rounded-md py-1'>Entrar</button>
+                <div className='flex flex-col w-4/5'>
+                    <span className='font-normal text-[#5c5c5c]'>_Senha</span>
+                    <input className='py-2 pl-2 mt-2 outline-none active:text-slate-400 rounded-full shadow-md shadow-[#c8c8c8]' placeholder='' type="password" id="password" name="password" />
+                </div>
             </div>
         </div>
     )

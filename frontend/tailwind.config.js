@@ -11,7 +11,7 @@ module.exports = {
         'green': "#33d9a5",
       },
       fontFamily: {
-        'poppins': 'Poppins'
+        'poppins': ['Poppins', 'sans-serif']
       },
     },
   },
