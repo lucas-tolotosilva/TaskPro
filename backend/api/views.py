@@ -1,36 +1,67 @@
 from django.views import View
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
+from django.http import JsonResponse
+
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
 from .models import Usuario, Tarefa, Comentario, Tag, Categoria
-from django.http.response import JsonResponse
-import json
+from django.contrib.auth.models import User
+from .serializers import UserSerializer,UserSerializerWithToken
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from django.contrib.auth.hashers import make_password
+
+from rest_framework import status
 # Create your views here.
 
-class UsuarioView(View):
-     
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-         return super().dispatch(request, *args, **kwargs)
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
 
-    def get(self, request):
-        usuarios = list(Usuario.objects.values())
-        if len(usuarios) > 0:
-             dados = {'message': 'Success','usuarios:':usuarios}
-        else:
-             dados = {'message':"Usuarios not founded"}
-        
-        return JsonResponse(dados)
-     
-    def post(self, request):
-        #print(request.body)
-        jd = json.loads(request.body)
+        serializer = UserSerializerWithToken(self.user).data
 
-        Usuario.objects.create(nome=jd['nome'], email=jd['email'], senha=jd['senha'])
-        dados = {'message': 'Success'}
-        return JsonResponse(dados)
+        for k, v in serializer.items():
+            data[k] = v
 
-    def put(self, request):
-          pass
-     
-    def delete(self, request):
-          pass
+        return data
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+@api_view(['POST'])
+def registerUser(request):
+    data = request.data
+
+    try:
+        user = User.objects.create(
+            first_name = data['name'],
+            username = data['email'],
+            email = data['email'],
+            password = make_password(data['password']),
+        )
+
+        serializer = UserSerializerWithToken(user, many=False)
+        return Response(serializer.data)
+    except:
+        message = {'detail': 'User with this email already exists'}
+        return Response(message, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserProfile(request):
+    user = request.user
+
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUsers(request):
+    users = User.objects.all()
+
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
