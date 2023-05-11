@@ -1,6 +1,6 @@
 import React from 'react'
 
-export function Cadastro() {
+export function Register() {
     return (
         <div className='w-[800px] h-[500px] bg-[#ecffd8] flex'>
             <div className='w-1/3 bg-[#408d89] text-white text-[40px] gap-20 font-bold font-poppins flex flex-col justify-center items-center shadow-lg'>
@@ -24,6 +24,8 @@ export function Cadastro() {
                     <span className='font-normal text-[#5c5c5c]'>_Senha</span>
                     <input className='py-2 pl-2 mt-2 outline-none active:text-slate-400 rounded-full shadow-md shadow-[#c8c8c8]' placeholder='' type="password" id="password" name="password" />
                 </div>
+                <input type='submit' value="Enviar" className='bg-[#408d89] hover:cursor-pointer text-white w-1/5 rounded-md py-1' />
+
             </div>
         </div>
     )

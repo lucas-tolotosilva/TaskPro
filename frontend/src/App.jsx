@@ -1,8 +1,16 @@
 import React from 'react'
-import { Initial } from './pages/Initial'
+import { Routes, Route } from 'react-router-dom'
+import { LoginScreen } from './pages/LoginScreen'
+import { RegisterScreen } from './pages/RegisterScreen'
+import { HomeScreen } from './pages/HomeScreen'
 
 export function App() {
     return (
-        <Initial />
+        <Routes>
+            <Route path='/' Component={HomeScreen} exact />
+            <Route path='/login' Component={LoginScreen} />
+            <Route path='/register' Component={RegisterScreen} />
+        </Routes>
+
     )
 }
