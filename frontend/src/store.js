@@ -2,10 +2,11 @@ import { combineReducers, applyMiddleware } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { userLoginReducer } from './reducers/userReducer'
+import { userLoginReducer, userRegisterReducer } from './reducers/userReducer'
 
 const reducer = combineReducers({
-    userLogin: userLoginReducer
+    userLogin: userLoginReducer,
+    userRegister: userRegisterReducer
 })
 
 const middleware = [thunk]
