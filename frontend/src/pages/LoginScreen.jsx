@@ -17,15 +17,18 @@ export function LoginScreen() {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(login(email, password)).then(() => {
+        dispatch(login(email, password))
+    }
+
+    useEffect(() => {
+        if (error) {
+            navigate('/login')
+        } else {
             if (userInfo) {
                 navigate('/')
-            } else {
-                navigate('/login')
             }
-
-        })
-    }
+        }
+    })
 
     return (
         <div className='overflow-y-hidden h-screen'>

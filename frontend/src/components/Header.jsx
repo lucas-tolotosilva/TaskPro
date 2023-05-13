@@ -12,7 +12,6 @@ export function Header() {
     const dispatch = useDispatch()
 
     const handleLogout = () => {
-        console.log('d')
         dispatch(logout())
     }
 

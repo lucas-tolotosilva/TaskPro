@@ -11,6 +11,8 @@ export function RegisterScreen() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState('')
+    const [redirectToHome, setRedirectToHome] = useState(false)
+
 
     const userRegister = useSelector(state => state.userRegister)
     const { error, loading, userInfo } = userRegister
@@ -25,17 +27,21 @@ export function RegisterScreen() {
             setMessage('As senhas não coincidem')
         } else {
             dispatch(register(name, email, password)).then(() => {
-                navigate('/')
+                //navigate('/')
+                if (!error) {
+                    navigate('/')
+                }
             })
         }
     }
+
 
     return (
         <div className='overflow-hidden h-screen'>
             <Header />
             <div className='w-full h-screen bg-[#b1d8cb] flex justify-center pt-10 relative'>
                 <form onSubmit={submitHandler}>
-                    <div className='w-[800px] h-[700px] bg-[#ecffd8] flex relative'>
+                    <div className='w-[800px] h-[700px] bg-[#ecffd8] flex justify-center relative'>
                         {message && <Message>{message}</Message>}
                         {error && <Message>{error}</Message>}
                         <div className='w-full flex flex-col items-center gap-10 justify-center pl-10  font-poppins'>
