@@ -28,7 +28,7 @@ export function LoginScreen() {
                 navigate('/')
             }
         }
-    })
+    }, [error, navigate, userInfo])
 
     return (
         <div className='overflow-y-hidden h-screen'>

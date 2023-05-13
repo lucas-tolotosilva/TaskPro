@@ -11,7 +11,6 @@ export function RegisterScreen() {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState('')
-    const [redirectToHome, setRedirectToHome] = useState(false)
 
 
     const userRegister = useSelector(state => state.userRegister)
@@ -26,15 +25,19 @@ export function RegisterScreen() {
         if (password != confirmPassword) {
             setMessage('As senhas não coincidem')
         } else {
-            dispatch(register(name, email, password)).then(() => {
-                //navigate('/')
-                if (!error) {
+            dispatch(register(name, email, password))
+            if (!error) {
+                navigate('/register')
+            } else {
+                if (userInfo) {
                     navigate('/')
+                    console.log('d')
                 }
-            })
+            }
         }
-    }
 
+
+    }
 
     return (
         <div className='overflow-hidden h-screen'>
