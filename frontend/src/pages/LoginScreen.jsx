@@ -11,7 +11,7 @@ export function LoginScreen() {
 
     const userLogin = useSelector(state => state.userLogin)
     const dispatch = useDispatch()
-    const { error, loading, userInfo } = userLogin
+    const { error, userInfo } = userLogin
 
     const navigate = useNavigate()
 
@@ -23,10 +23,8 @@ export function LoginScreen() {
     useEffect(() => {
         if (error) {
             navigate('/login')
-        } else {
-            if (userInfo) {
-                navigate('/')
-            }
+        } else if (userInfo) {
+            navigate('/')
         }
     }, [error, navigate, userInfo])
 
@@ -47,7 +45,9 @@ export function LoginScreen() {
                         </div>
                         <div className='w-2/3 flex flex-col gap-10 justify-center pl-10  font-poppins relative'>
 
+                            {error && <Message>{error}</Message>}
 
+                            <br />
                             <div className='flex flex-col w-4/5'>
                                 <span className='font-normal text-[#5c5c5c]'>_Email</span>
                                 <input className='py-2 pl-2 mt-2 outline-none active:text-slate-400 rounded-full shadow-md shadow-[#c8c8c8]'

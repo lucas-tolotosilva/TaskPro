@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { register } from '../actions/userActions'
 import { Header } from '../components/Header'
 import { Message } from '../components/Message'
@@ -14,7 +14,7 @@ export function RegisterScreen() {
 
 
     const userRegister = useSelector(state => state.userRegister)
-    const { error, loading, userInfo } = userRegister
+    const { error, userInfo } = userRegister
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -22,7 +22,7 @@ export function RegisterScreen() {
     const submitHandler = (e) => {
         e.preventDefault()
 
-        if (password != confirmPassword) {
+        if (password !== confirmPassword) {
             setMessage('As senhas não coincidem')
         } else {
             dispatch(register(name, email, password))
