@@ -48,15 +48,14 @@ class ComentarioSerializer(serializers.ModelSerializer):
         fields = ['texto']
 
 class TarefaSerializer(serializers.ModelSerializer):
-    usuario = UserSerializer()
     usuario_id = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(),
         source='usuario',
         write_only=True
     )
-    tags = TagSerializer(many=True)
-    comentarios = ComentarioSerializer(many=True)
+    tags = TagSerializer()
+    comentarios = ComentarioSerializer()
 
     class Meta:
         model = Tarefa
-        fields = ['idTarefa', 'descricao', 'dataCriacao', 'status', 'usuario', 'usuario_id', 'tags', 'comentarios']
+        fields = ['idTarefa', 'descricao', 'dataCriacao', 'status', 'usuario_id', 'tags', 'comentarios']
