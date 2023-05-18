@@ -9,9 +9,16 @@ from api.serializers import TarefaSerializer
 from rest_framework import status
 
 @api_view(['GET'])
-def getTask(request):
-    tarefas = Tarefa.objects.all()
+def getTasks(request):
+    usuario = request.user
+    tarefas = Tarefa.objects.filter(usuario = usuario)
     serializer = TarefaSerializer(tarefas, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getTask(request, pk):
+    tarefa = Tarefa.objects.get(idTarefa = pk)
+    serializer = TarefaSerializer(tarefa, many=False)
     return Response(serializer.data)
 
 @api_view(['POST'])

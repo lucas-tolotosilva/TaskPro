@@ -24,12 +24,12 @@ export function LoginScreen() {
         if (error) {
             navigate('/login')
         } else if (userInfo) {
-            navigate('/')
+            navigate('/user/tarefas')
         }
     }, [error, navigate, userInfo])
 
     return (
-        <div className='overflow-y-hidden h-screen'>
+        <div className=' h-screen'>
             <Header />
             <div className='w-full h-screen bg-[#b1d8cb] flex justify-center pt-32'>
                 <form onSubmit={submitHandler}>

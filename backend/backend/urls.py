@@ -22,5 +22,5 @@ urlpatterns = [
     
     path('api/users/', include('api.urls.user_urls')),
 
-    # path('api/tarefas/', include('api.urls.task_urls'))
+    path('api/tarefas/', include('api.urls.task_urls'))
 ]

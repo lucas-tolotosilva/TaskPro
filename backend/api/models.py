@@ -4,7 +4,7 @@ from django.db import models
 class Categoria(models.Model):
     descricao = models.CharField(max_length=45)
     idCategoria = models.AutoField(primary_key=True, editable=False)
-    
+
     def __str__(self):
         return self.descricao
 
@@ -27,7 +27,7 @@ class Tarefa(models.Model):
     comentario = models.ForeignKey(Comentario, on_delete=models.CASCADE,blank=True, null=True)
     nome = models.CharField(max_length=45, null=True, blank=True)
     descricao = models.TextField(null=True, blank=True)
-    dataCriacao = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=45, null=True, blank=True)
     idTarefa = models.AutoField(primary_key=True, editable=False)
 

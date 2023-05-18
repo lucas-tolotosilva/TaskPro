@@ -40,7 +40,7 @@ export function RegisterScreen() {
     }
 
     return (
-        <div className='overflow-hidden h-screen'>
+        <div className=' h-screen'>
             <Header />
             <div className='w-full h-screen bg-[#b1d8cb] flex justify-center pt-10 relative'>
                 <form onSubmit={submitHandler}>
