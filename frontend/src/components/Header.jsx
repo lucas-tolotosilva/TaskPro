@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { BiLogOut } from "react-icons/bi";
 import { logout } from '../actions/userActions'
@@ -11,8 +11,11 @@ export function Header() {
 
     const dispatch = useDispatch()
 
+    const navigate = useNavigate()
+
     const handleLogout = () => {
         dispatch(logout())
+        navigate('/')
     }
 
     return (

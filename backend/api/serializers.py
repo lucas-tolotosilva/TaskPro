@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken 
-from .models import Categoria, Tarefa, Tag, Comentario
+from .models import Categoria, Tarefa, Tag, Status
 
 class UserSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField(read_only = True)
@@ -42,15 +42,15 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ['nomeTag']
 
-class ComentarioSerializer(serializers.ModelSerializer):
+class StatusSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comentario
+        model = Status
         fields = ['texto']
 
 class TarefaSerializer(serializers.ModelSerializer):
     nomeUsuario = UserSerializerWithToken(read_only= True, source="user.name")
-    nomeTag = UserSerializerWithToken(read_only= True, source="Tag.name")
-    comentario = UserSerializerWithToken(read_only= True, source="Comentario.texto")
+    nomeTag = TagSerializer(read_only= True, source="Tag.name")
+    status = StatusSerializer(read_only= True, source="Status.status")
 
     class Meta:
         model = Tarefa

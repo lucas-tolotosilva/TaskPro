@@ -33,8 +33,6 @@ export const listTarefas = () => async (dispatch, getState) => {
             payload: data
         })
 
-        localStorage.setItem('tarefas', JSON.stringify(data))
-
     } catch (error) {
         dispatch({
             type: TAREFA_LIST_FAIL,
