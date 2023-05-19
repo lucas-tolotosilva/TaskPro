@@ -42,3 +42,38 @@ export const listTarefas = () => async (dispatch, getState) => {
         })
     }
 }
+
+export const register = (name, email, password) => async (dispatch) => {
+    try {
+        dispatch({
+            type: TAREFA_LIST_REQUEST
+        })
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.post(
+            'http://127.0.0.1:8000/users/create/',
+            { 'name': name, 'email': email, 'password': password },
+            config
+        )
+
+        dispatch({
+            type: TAREFA_LIST_SUCCESS,
+            payload: data
+        })
+
+        localStorage.setItem('userInfo', JSON.stringify(data))
+
+    } catch (error) {
+        dispatch({
+            type: TAREFA_LIST_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
