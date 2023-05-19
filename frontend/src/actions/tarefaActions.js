@@ -43,7 +43,7 @@ export const listTarefas = () => async (dispatch, getState) => {
     }
 }
 
-export const register = (name, email, password) => async (dispatch) => {
+export const createTask = (nome, categoria, descricao,) => async (dispatch) => {
     try {
         dispatch({
             type: TAREFA_LIST_REQUEST
@@ -57,7 +57,7 @@ export const register = (name, email, password) => async (dispatch) => {
 
         const { data } = await axios.post(
             'http://127.0.0.1:8000/users/create/',
-            { 'name': name, 'email': email, 'password': password },
+            { 'name': nome, 'categoria': categoria, 'descricao': descricao },
             config
         )
 
@@ -65,8 +65,6 @@ export const register = (name, email, password) => async (dispatch) => {
             type: TAREFA_LIST_SUCCESS,
             payload: data
         })
-
-        localStorage.setItem('userInfo', JSON.stringify(data))
 
     } catch (error) {
         dispatch({
