@@ -29,9 +29,9 @@ export function LoginScreen() {
     }, [error, navigate, userInfo])
 
     return (
-        <div className=' h-screen'>
+        <div className='bg-[#b1d8cb] min-h-screen'>
             <Header />
-            <div className='w-full h-screen bg-[#b1d8cb] flex justify-center pt-32'>
+            <div className='w-full bg-[#b1d8cb] flex justify-center pt-32'>
                 <form onSubmit={submitHandler}>
                     <div className='w-[800px] h-[500px] bg-[#ecffd8] flex '>
 

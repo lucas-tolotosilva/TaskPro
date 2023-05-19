@@ -48,10 +48,28 @@ class StatusSerializer(serializers.ModelSerializer):
         fields = ['texto']
 
 class TarefaSerializer(serializers.ModelSerializer):
-    nomeUsuario = UserSerializerWithToken(read_only= True, source="user.name")
-    nomeTag = TagSerializer(read_only= True, source="Tag.name")
-    status = StatusSerializer(read_only= True, source="Status.status")
+    nomeUsuario = serializers.SerializerMethodField(read_only = True)
+    nomeTag = serializers.SerializerMethodField(read_only = True)
+    status = serializers.SerializerMethodField(read_only = True)
+    categoria = serializers.SerializerMethodField(read_only = True)
+
+    def get_nomeUsuario(self, obj):
+        name = obj.usuario.first_name
+        if name == '':
+            name = obj.usuario.email
+        
+        return name
+
+    def get_nomeTag(self, obj):
+        return obj.tag.nomeTag
+    
+    def get_status(self, obj):
+        return obj.status.status
+    
+    def get_categoria(self, obj):
+        return obj.categoria.descricao
+
 
     class Meta:
         model = Tarefa
-        fields = ['idTarefa', 'nome', 'descricao', 'status', 'nomeUsuario', 'nomeTag', 'comentario']
+        fields = ['idTarefa', 'nome', 'categoria', 'descricao', 'status', 'nomeUsuario', 'nomeTag']

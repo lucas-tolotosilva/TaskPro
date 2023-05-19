@@ -17,23 +17,30 @@ export function TarefasScreen() {
     }, [dispatch])
 
     return (
-        <div>
+        <div className='bg-[#EDF2E3] min-h-screen'>
             <Header />
-
-            {tarefas && Object.values(tarefas).map(tarefa => (
-                <div key={tarefa.idTarefa}>
-                    <ul>
-                        <li>{tarefa.nome}</li>
-                        <li>{tarefa.descricao}</li>
-                        <li>{tarefa.status}</li>
-                        <li>{tarefa.usuario}</li>
-                        <li>{tarefa.tag}</li>
-                        <li>{tarefa.comentario}</li>
-                    </ul>
-                </div>
-            ))}
-
-
+            <div className='w-full h-full flex justify-center mt-16'>
+                <table className='table-auto w-3/4 text-left border  border-sky-500'>
+                    <thead className='bg-[#C0D29D]'>
+                        <th>Prioridade</th>
+                        <th>Tarefa</th>
+                        <th>Descricao</th>
+                        <th>Criador</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        {tarefas && Object.values(tarefas).map(tarefa => (
+                            <tr key={tarefa.idTarefa}>
+                                <td>{tarefa.nome}</td>
+                                <td>{tarefa.descricao}</td>
+                                <td>{tarefa.status}</td>
+                                <td>{tarefa.nomeUsuario}</td>
+                                <td>{tarefa.nomeTag}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

@@ -40,9 +40,9 @@ export function RegisterScreen() {
     }
 
     return (
-        <div className=' h-screen'>
+        <div className='min-h-screen bg-[#b1d8cb]'>
             <Header />
-            <div className='w-full h-screen bg-[#b1d8cb] flex justify-center pt-10 relative'>
+            <div className='w-full flex justify-center pt-10 relative'>
                 <form onSubmit={submitHandler}>
                     <div className='w-[800px] h-[700px] bg-[#ecffd8] flex justify-center relative'>
                         {message && <Message>{message}</Message>}
