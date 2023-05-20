@@ -12,9 +12,12 @@ export function FormCreateTask() {
     const statusList = useSelector(state => state.statusList)
     const categoriaList = useSelector(state => state.categoriaList)
 
+    const createTask = useSelector(state => state.tarefaCreate)
+
     const { error, tags } = tagList
     const { status } = statusList
     const { categorias } = categoriaList
+    const { tarefas } = createTask
 
     const handleSelectedTag = (e) => {
         const option = e.target.value
@@ -35,6 +38,7 @@ export function FormCreateTask() {
         dispatch(listStatus())
         dispatch(listCategoria())
     }, [dispatch])
+
 
     return (
         <div className='w-full h-full flex items-center justify-center'>
