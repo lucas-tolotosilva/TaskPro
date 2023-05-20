@@ -35,17 +35,17 @@ class UserSerializerWithToken(UserSerializer):
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categoria
-        fields = ['idCategoria', 'descricao']
+        fields = '__all__'
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ['nomeTag']
+        fields = '__all__'
 
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
-        fields = ['texto']
+        fields = '__all__'
 
 class TarefaSerializer(serializers.ModelSerializer):
     nomeUsuario = serializers.SerializerMethodField(read_only = True)
