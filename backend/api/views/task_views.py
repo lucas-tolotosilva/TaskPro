@@ -24,7 +24,8 @@ def getTask(request, pk):
 
 @api_view(['POST'])
 def createTask(request):
-    serializer = TarefaSerializer(data=request.data)
+    data = request.data
+    serializer = TarefaSerializer(data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
