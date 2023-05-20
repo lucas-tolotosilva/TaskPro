@@ -50,7 +50,7 @@ export const categoriaReducer = (state = { categorias: [] }, action) => {
         case CATEGORIA_LIST_FAIL:
             return { loading: true }
 
-        case CATEGORIA_LIST_FAIL:
+        case CATEGORIA_LIST_SUCCESS:
             return { loading: false, categorias: action.payload }
 
         case CATEGORIA_LIST_FAIL:

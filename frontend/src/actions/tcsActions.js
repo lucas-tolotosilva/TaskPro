@@ -105,7 +105,7 @@ export const listCategoria = () => async (dispatch, getState) => {
         }
 
         const { data } = await axios.get(
-            'http://127.0.0.1:8000/api/get/status/',
+            'http://127.0.0.1:8000/api/get/categoria/',
             config
         )
 

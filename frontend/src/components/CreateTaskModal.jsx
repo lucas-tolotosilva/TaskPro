@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { logout } from '../actions/userActions'
 import Modal from 'react-modal';
+import { FormCreateTask } from '../components/FormCreateTask'
+
+import btnClose from '../assets/close.png'
 
 export function CreateTask({ modalIsOpen, closeModal }) {
-    const [stateModalIsOpen, setStateIsOpen] = useState(false);
 
     Modal.setAppElement('#root');
 
@@ -13,26 +12,19 @@ export function CreateTask({ modalIsOpen, closeModal }) {
         closeModal()
     }
 
-    const userLogin = useSelector(state => state.userLogin)
-    const { userInfo } = userLogin
-
-    const dispatch = useDispatch()
-
-    const navigate = useNavigate()
-
-    const handleLogout = () => {
-        dispatch(logout())
-        navigate('/')
-    }
-
     return (
         <Modal
             isOpen={modalIsOpen}
             onRequestClose={handleCloseModal}
         >
+            <div className='relative'>
+                <button className='absolute top-1 right-1 w-3' onClick={handleCloseModal}>
+                    <img src={btnClose} />
+                </button>
 
-            <h1>Esse é um modal</h1>
-            <button onClick={handleCloseModal}>content</button>
+                <FormCreateTask />
+
+            </div>
         </Modal>
     )
 }
