@@ -70,6 +70,9 @@ export const createTask = (nome, categoria, descricao, status, nomeUsuario, nome
             payload: data
         })
 
+        localStorage.setItem('tarefas', JSON.stringify(data))
+        console.log(data)
+
     } catch (error) {
         dispatch({
             type: TAREFA_REGISTER_FAIL,

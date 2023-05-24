@@ -49,8 +49,8 @@ export function TarefasScreen() {
                         </tr>
                     </thead>
                     <tbody>
-                        {tarefas && Object.values(tarefas).map(tarefa => (
-                            <tr key={tarefa.idTarefa} className={`${tarefa.idTarefa % 2 === 0 ? 'bg-[#dfe7cf]' : ''} border-b-2 mx-3 rounded-lg`}>
+                        {tarefas && Object.values(tarefas).map((tarefa, index) => (
+                            <tr key={index} className={`${tarefa.idTarefa % 2 === 0 ? 'bg-[#dfe7cf]' : ''} border-b-2 mx-3 rounded-lg`}>
                                 <td className='py-3 pl-3 '>{tarefa.nomeTag}</td>
                                 <td >{tarefa.nome}</td>
                                 <td>{tarefa.descricao}</td>

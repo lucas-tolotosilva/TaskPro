@@ -11,7 +11,7 @@ import {
 const tarefaFromStorage = localStorage.getItem('tarefas') ?
     JSON.parse(localStorage.getItem('tarefas')) : null
 
-export const tarefaReducer = (state = { tarefas: [] }, action) => {
+export const tarefaReducer = (state = { tarefas: [tarefaFromStorage] }, action) => {
     switch (action.type) {
         case TAREFA_LIST_REQUEST:
             return { loading: true }
@@ -27,7 +27,7 @@ export const tarefaReducer = (state = { tarefas: [] }, action) => {
 
     }
 }
-export const tarefaRegisterReducer = (state = { tarefas: [] }, action) => {
+export const tarefaRegisterReducer = (state = { tarefas: tarefaFromStorage }, action) => {
     switch (action.type) {
         case TAREFA_REGISTER_REQUEST:
             return { loading: true }

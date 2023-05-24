@@ -25,12 +25,23 @@ def getTask(request, pk):
 @api_view(['POST'])
 def createTask(request):
     data = request.data
-    serializer = TarefaSerializer(data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=201)
-    return Response(serializer.errors, status=400)
 
+    try:
+        tarefa = Tarefa.objects.create(
+            nome = data['nome'],
+            categoria = data['categoria'],
+            descricao = data['descricao'],
+            status = data['status'],
+            nomeUsuario = data['nomeUsuario'],
+            nomeTag = data['nomeTag'],
+        )
+
+        serializer = TarefaSerializer(tarefa, many=False)
+        return Response(serializer.data)
+    except:
+        message = {'detail': 'Não foi possível criar a Tarefa'}
+        return Response(message, status = status.HTTP_400_BAD_REQUEST)
+    
 @api_view(['GET', 'PUT', 'DELETE'])
 def detailTask(request, id):
     try:
