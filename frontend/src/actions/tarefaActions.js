@@ -7,6 +7,10 @@ import {
     TAREFA_REGISTER_REQUEST,
     TAREFA_REGISTER_SUCCESS,
     TAREFA_REGISTER_FAIL,
+
+    TAREFA_DELETE_REQUEST,
+    TAREFA_DELETE_SUCCESS,
+    TAREFA_DELETE_FAIL,
 } from '../constants/tarefaConstants'
 
 export const listTarefas = () => async (dispatch, getState) => {
@@ -79,9 +83,47 @@ export const createTask = (nome, categoria, descricao, status, usuario, tag) => 
         })
 
     } catch (error) {
-        console.log(error.response)
         dispatch({
             type: TAREFA_REGISTER_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+export const deleteTask = (id) => async (dispatch) => {
+    try {
+        dispatch({
+            type: TAREFA_DELETE_REQUEST
+        })
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.post(
+            `http://127.0.0.1:8000/api/tarefas/delete/${id}`,
+            config
+        ).then(response => {
+            // A exclusão foi bem-sucedida
+            console.log('Tarefa excluída com sucesso');
+        })
+            .catch(error => {
+                // Ocorreu um erro durante a exclusão
+                console.error('Erro ao excluir a tarefa', error);
+            });
+
+        dispatch({
+            type: TAREFA_DELETE_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: TAREFA_DELETE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,

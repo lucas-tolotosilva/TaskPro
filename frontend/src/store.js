@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducer'
-import { tarefaReducer, tarefaRegisterReducer } from './reducers/tarefaReducer'
+import { tarefaReducer, tarefaRegisterReducer, tarefaDeleteReducer } from './reducers/tarefaReducer'
 import { tagReducer, statusReducer, categoriaReducer } from './reducers/tcsReducer'
 
 const reducer = combineReducers({
@@ -11,6 +11,7 @@ const reducer = combineReducers({
     userRegister: userRegisterReducer,
     tarefaList: tarefaReducer,
     tarefaCreate: tarefaRegisterReducer,
+    tarefaDelete: tarefaDeleteReducer,
     tagList: tagReducer,
     statusList: statusReducer,
     categoriaList: categoriaReducer

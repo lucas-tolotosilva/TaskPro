@@ -8,6 +8,7 @@ import iDelete from '../assets/delete.png'
 import iEdit from '../assets/edit.png'
 import iAdd from '../assets/botao-adicionar.png'
 import { CreateTask } from '../components/CreateTaskModal'
+import { deleteTask } from '../actions/tarefaActions'
 
 export function TarefasScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -23,7 +24,13 @@ export function TarefasScreen() {
     const dispatch = useDispatch()
 
     const tarefaList = useSelector(state => state.tarefaList)
+    const tarefaDelete = useSelector(state => state.tarefaDelete)
+
     const { error, tarefas } = tarefaList
+
+    const handleDelete = (id) => {
+        dispatch()
+    }
 
     useEffect(() => {
         dispatch(listTarefas())
@@ -50,13 +57,13 @@ export function TarefasScreen() {
                     </thead>
                     <tbody>
                         {tarefas && Object.values(tarefas).map((tarefa, index) => (
-                            <tr key={index} className={`${tarefa.idTarefa % 2 === 0 ? 'bg-[#dfe7cf]' : ''} border-b-2 mx-3 rounded-lg`}>
+                            <tr key={index} className={`${index % 2 === 0 ? 'bg-[#dfe7cf]' : ''} border-b-2 mx-3 rounded-lg`}>
                                 <td className='py-3 pl-3 '>{tarefa.nomeTag}</td>
                                 <td >{tarefa.nome}</td>
                                 <td>{tarefa.descricao}</td>
                                 <td>{tarefa.status}</td>
                                 <td><img className='mx-2 w-5' src={iEdit} /></td>
-                                <td><img className='mx-2 w-5' src={iDelete} /></td>
+                                <td><img className='mx-2 w-5' onClick={() => handleDelete(tarefa.idTarefa)} src={iDelete} /></td>
                             </tr>
                         ))}
                     </tbody>

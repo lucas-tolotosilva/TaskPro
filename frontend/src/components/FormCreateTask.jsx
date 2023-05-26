@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { listTags, listStatus, listCategoria } from '../actions/tcsActions'
 import { createTask } from '../actions/tarefaActions'
+import { useNavigate } from 'react-router-dom'
 
 export function FormCreateTask() {
     const [nomeTarefa, setNomeTarefa] = useState('')
@@ -14,6 +15,7 @@ export function FormCreateTask() {
     var idStatus;
     var idCategoria;
 
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const tagList = useSelector(state => state.tagList)
@@ -57,6 +59,7 @@ export function FormCreateTask() {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createTask(nomeTarefa, idCategoria, descricaoTarefa, idStatus, userInfo.id, idTag))
+        navigate('/user/tarefas/')
     }
 
     useEffect(() => {
