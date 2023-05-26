@@ -29,7 +29,7 @@ export function TarefasScreen() {
     const { error, tarefas } = tarefaList
 
     const handleDelete = (id) => {
-        dispatch()
+        dispatch(tarefaDelete(id))
     }
 
     useEffect(() => {
@@ -63,7 +63,7 @@ export function TarefasScreen() {
                                 <td>{tarefa.descricao}</td>
                                 <td>{tarefa.status}</td>
                                 <td><img className='mx-2 w-5' src={iEdit} /></td>
-                                <td><img className='mx-2 w-5' onClick={() => handleDelete(tarefa.idTarefa)} src={iDelete} /></td>
+                                <td><img className='mx-2 w-5 hover:cursor-pointer' onClick={() => handleDelete(tarefa.idTarefa)} src={iDelete} /></td>
                             </tr>
                         ))}
                     </tbody>
