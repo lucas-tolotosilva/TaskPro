@@ -104,17 +104,10 @@ export const deleteTask = (id) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.post(
-            `http://127.0.0.1:8000/api/tarefas/delete/${id}`,
+        const { data } = await axios.delete(
+            `http://127.0.0.1:8000/api/tarefas/delete/${id}/`,
             config
-        ).then(response => {
-            // A exclusão foi bem-sucedida
-            console.log('Tarefa excluída com sucesso');
-        })
-            .catch(error => {
-                // Ocorreu um erro durante a exclusão
-                console.error('Erro ao excluir a tarefa', error);
-            });
+        )
 
         dispatch({
             type: TAREFA_DELETE_SUCCESS,

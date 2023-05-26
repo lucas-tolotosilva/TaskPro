@@ -24,12 +24,11 @@ export function TarefasScreen() {
     const dispatch = useDispatch()
 
     const tarefaList = useSelector(state => state.tarefaList)
-    const tarefaDelete = useSelector(state => state.tarefaDelete)
 
     const { error, tarefas } = tarefaList
 
     const handleDelete = (id) => {
-        dispatch(tarefaDelete(id))
+        dispatch(deleteTask(id))
     }
 
     useEffect(() => {

@@ -35,14 +35,9 @@ def createTask(request):
 
 @api_view(['DELETE'])
 def deleteTask(request, pk):
-    try:
         tarefa = Tarefa.objects.get(idTarefa=pk)
         tarefa.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    except Tarefa.DoesNotExist:
-        return Response({'detail': 'Tarefa não encontrada.'}, status=status.HTTP_404_NOT_FOUND)
-    except Exception:
-        return Response({'detail': 'Não foi possível excluir a tarefa.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response('Tarefa Removida')
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def detailTask(request, id):
