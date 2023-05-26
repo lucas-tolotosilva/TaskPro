@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from ..models import Tarefa, Status, Tag, Categoria
 from django.contrib.auth.models import User
-from api.serializers import TarefaSerializer
+from api.serializers import TarefaSerializer, CreateTarefaSerializer
 
 from rest_framework import status
 
@@ -26,22 +26,13 @@ def getTask(request, pk):
 def createTask(request):
     data = request.data
 
-    try:
-        tarefa = Tarefa.objects.create(
-            nome = data['nome'],
-            categoria = data['categoria'],
-            descricao = data['descricao'],
-            status = data['status'],
-            nomeUsuario = data['nomeUsuario'],
-            nomeTag = data['nomeTag'],
-        )
+    serializer = CreateTarefaSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer = TarefaSerializer(tarefa, many=False)
-        return Response(serializer.data)
-    except:
-        message = {'detail': 'Não foi possível criar a Tarefa'}
-        return Response(message, status = status.HTTP_400_BAD_REQUEST)
-    
 @api_view(['GET', 'PUT', 'DELETE'])
 def detailTask(request, id):
     try:

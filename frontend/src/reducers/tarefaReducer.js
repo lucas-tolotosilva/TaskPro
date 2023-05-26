@@ -27,7 +27,7 @@ export const tarefaReducer = (state = { tarefas: [tarefaFromStorage] }, action) 
 
     }
 }
-export const tarefaRegisterReducer = (state = { tarefas: tarefaFromStorage }, action) => {
+export const tarefaRegisterReducer = (state = {}, action) => {
     switch (action.type) {
         case TAREFA_REGISTER_REQUEST:
             return { loading: true }

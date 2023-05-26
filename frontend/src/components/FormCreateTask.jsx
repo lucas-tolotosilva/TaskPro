@@ -10,9 +10,9 @@ export function FormCreateTask() {
     const [selectedStatus, setSelectedStatus] = useState()
     const [descricaoTarefa, setDescricaoTarefa] = useState()
 
-    const [idTag, setIdTag] = useState()
-    const [idCategoria, setIdCategoria] = useState()
-    const [idStatus, setIdStatus] = useState()
+    var idTag;
+    var idStatus;
+    var idCategoria;
 
     const dispatch = useDispatch()
 
@@ -30,42 +30,33 @@ export function FormCreateTask() {
     const { tarefas, error } = taskCreate
     const { userInfo } = userLogged
 
-    const handleSelectedTag = (e) => {
-        const option = e.target.value
-        if (option === 'Alta Urgência') {
-            setIdTag(1)
-        } else if (option === 'Média Urgência') {
-            setIdTag(2)
-        } else if (option === "Baixa Urgência") {
-            setIdTag(3)
-        }
-
+    if (selectedTag === 'Alta Urgência') {
+        idTag = 1
+    } else if (selectedTag === 'Média Urgência') {
+        idTag = 2
+    } else if (selectedTag === 'Baixa Urgência') {
+        idTag = 3
     }
 
-    const handleSelectedCategoria = (e) => {
-        const option = e.target.value
-        if (option === 'Escola') {
-            setIdCategoria(1)
-        } else if (option === 'Academia') {
-            setIdCategoria(2)
-        } else if (option === 'Casa') {
-            setIdCategoria(3)
-        }
+    if (selectedCategoria === 'Escola') {
+        idCategoria = 1
+    } else if (selectedCategoria === 'Academia') {
+        idCategoria = 2
+    } else if (selectedCategoria === 'Casa') {
+        idCategoria = 3
     }
 
-    const handleSelectedStatus = (e) => {
-        const option = e.target.value
-        if (option === 'Parado') {
-            setIdStatus(1)
-        } else if (option === 'Em andamento') {
-            setIdStatus(2)
-        } else if (option === 'Finalizado') {
-            setIdStatus(3)
-        }
+    if (selectedStatus === 'Parado') {
+        idStatus = 1
+    } else if (selectedStatus === 'Em andamento') {
+        idStatus = 2
+    } else if (selectedStatus === 'Finalizado') {
+        idStatus = 3
     }
 
-    const handleSubmit = () => {
-        console.log(dispatch(createTask(nomeTarefa, idCategoria, descricaoTarefa, idStatus, userInfo.id, idTag)))
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(createTask(nomeTarefa, idCategoria, descricaoTarefa, idStatus, userInfo.id, idTag))
     }
 
     useEffect(() => {
@@ -87,7 +78,7 @@ export function FormCreateTask() {
 
                 <br />
                 <label>Selecione a Tag</label>
-                <select onChange={handleSelectedTag} value={selectedTag} className='p-1 rounded-lg text-gray'>
+                <select onChange={e => { setSelectedTag(e.target.value) }} value={selectedTag} className='p-1 rounded-lg text-gray'>
                     {tags && Object.values(tags).map(tag => (
                         <option key={tag.idTag} className='text-black'>{tag.nomeTag}</option>
                     ))}
@@ -95,14 +86,14 @@ export function FormCreateTask() {
 
                 <br />
                 <label>Selecione a Categoria</label>
-                <select onChange={handleSelectedCategoria} value={selectedCategoria} className='p-1 rounded-lg text-gray'>
+                <select onChange={e => { setSelectedCategoria(e.target.value) }} value={selectedCategoria} className='p-1 rounded-lg text-gray'>
                     {categorias && Object.values(categorias).map(categoria => (
                         <option key={categoria.idCategoria} className='text-black'>{categoria.descricao}</option>
                     ))}
                 </select>
                 <br />
                 <label>Selecione o Status</label>
-                <select onChange={handleSelectedStatus} value={selectedStatus} className='p-1 rounded-lg text-gray'>
+                <select onChange={e => { setSelectedStatus(e.target.value) }} value={selectedStatus} className='p-1 rounded-lg text-gray'>
                     {status && Object.values(status).map(statu => (
                         <option key={statu.idStatus} className='text-black'>{statu.status}</option>
                     ))}

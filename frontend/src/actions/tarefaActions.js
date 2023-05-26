@@ -47,7 +47,7 @@ export const listTarefas = () => async (dispatch, getState) => {
     }
 }
 
-export const createTask = (nome, categoria, descricao, status, nomeUsuario, nomeTag) => async (dispatch) => {
+export const createTask = (nome, categoria, descricao, status, usuario, tag) => async (dispatch) => {
     try {
         dispatch({
             type: TAREFA_REGISTER_REQUEST
@@ -60,20 +60,26 @@ export const createTask = (nome, categoria, descricao, status, nomeUsuario, nome
         }
 
         const { data } = await axios.post(
-            'http://127.0.0.1:8000/users/create/',
-            { 'nome': nome, 'categoria': categoria, 'descricao': descricao, 'status': status, 'nomeUsuario': nomeUsuario, 'nomeTag': nomeTag, },
+            'http://127.0.0.1:8000/api/tarefas/create/',
+            {
+                'nome': nome,
+                'idCategoria': categoria,
+                'descricao': descricao,
+                'idStatus': status,
+                'idUsuario': usuario,
+                'idTag': tag
+            },
             config
         )
+        console.log(data)
 
         dispatch({
             type: TAREFA_REGISTER_SUCCESS,
             payload: data
         })
 
-        localStorage.setItem('tarefas', JSON.stringify(data))
-        console.log(data)
-
     } catch (error) {
+        console.log(error.response)
         dispatch({
             type: TAREFA_REGISTER_FAIL,
             payload: error.response && error.response.data.detail
@@ -82,3 +88,4 @@ export const createTask = (nome, categoria, descricao, status, nomeUsuario, nome
         })
     }
 }
+

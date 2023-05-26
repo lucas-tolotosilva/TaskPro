@@ -73,3 +73,14 @@ class TarefaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tarefa
         fields = ['idTarefa', 'nome', 'categoria', 'descricao', 'status', 'nomeUsuario', 'nomeTag']
+
+
+class CreateTarefaSerializer(serializers.ModelSerializer):
+    idUsuario = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), source='usuario')
+    idTag = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), source='tag')
+    idStatus = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), source='status')
+    idCategoria = serializers.PrimaryKeyRelatedField(queryset=Categoria.objects.all(), source='categoria')
+
+    class Meta:
+        model = Tarefa
+        fields = ['idTarefa', 'nome', 'idCategoria', 'descricao', 'idStatus', 'idUsuario', 'idTag']
