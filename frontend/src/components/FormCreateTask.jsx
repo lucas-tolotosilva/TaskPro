@@ -59,7 +59,7 @@ export function FormCreateTask() {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createTask(nomeTarefa, idCategoria, descricaoTarefa, idStatus, userInfo.id, idTag))
-        navigate('/user/tarefas/')
+        window.location.replace('http://localhost:3000/user/tarefas/');
     }
 
     useEffect(() => {

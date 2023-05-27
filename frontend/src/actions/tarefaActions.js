@@ -96,7 +96,7 @@ export const createTask = (nome, categoria, descricao, status, usuario, tag) => 
     }
 }
 
-export const deleteTask = (id) => async (dispatch) => {
+export const updateTask = (id, nome, categoria, descricao, status, usuario, tag) => async (dispatch) => {
     try {
         dispatch({
             type: TAREFA_UPDATE_REQUEST
@@ -108,19 +108,27 @@ export const deleteTask = (id) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.up(
+        const { data } = await axios.put(
             `http://127.0.0.1:8000/api/tarefas/update/${id}/`,
+            {
+                'nome': nome,
+                'idCategoria': categoria,
+                'descricao': descricao,
+                'idStatus': status,
+                'idUsuario': usuario,
+                'idTag': tag
+            },
             config
         )
 
         dispatch({
-            type: TAREFA_DELETE_SUCCESS,
+            type: TAREFA_UPDATE_SUCCESS,
             payload: data
         })
 
     } catch (error) {
         dispatch({
-            type: TAREFA_DELETE_FAIL,
+            type: TAREFA_UPDATE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
@@ -128,7 +136,7 @@ export const deleteTask = (id) => async (dispatch) => {
     }
 }
 
-export const updateTask = (id) => async (dispatch) => {
+export const deleteTask = (id) => async (dispatch) => {
     try {
         dispatch({
             type: TAREFA_DELETE_REQUEST

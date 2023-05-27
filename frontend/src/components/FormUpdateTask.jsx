@@ -58,16 +58,15 @@ export function FormUpdateTask({ selectedTask }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(updateTask(nomeTarefa, idCategoria, descricaoTarefa, idStatus, userInfo.id, idTag))
-        navigate('/user/tarefas/')
+        dispatch(updateTask(selectedTask.idTarefa, nomeTarefa, idCategoria, descricaoTarefa, idStatus, userInfo.id, idTag))
+        window.location.replace('http://localhost:3000/user/tarefas/');
     }
-
+    console.log(selectedTask)
     useEffect(() => {
         dispatch(listTags())
         dispatch(listStatus())
         dispatch(listCategoria())
     }, [dispatch])
-    console.log(error)
     return (
         <div className='w-full h-full flex items-center justify-center'>
 
