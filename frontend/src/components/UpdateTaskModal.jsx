@@ -4,7 +4,7 @@ import { FormUpdateTask } from '../components/FormUpdateTask'
 
 import btnClose from '../assets/close.png'
 
-export function UpdateTask({ modalUpdateIsOpen, closeModalUpdate }) {
+export function UpdateTask({ selectedTask, modalUpdateIsOpen, closeModalUpdate }) {
 
     Modal.setAppElement('#root');
 
@@ -21,7 +21,7 @@ export function UpdateTask({ modalUpdateIsOpen, closeModalUpdate }) {
                 <button className='absolute top-1 right-1 w-3' onClick={handleCloseModal}>
                     <img src={btnClose} />
                 </button>
-                <FormUpdateTask />
+                <FormUpdateTask selectedTask={selectedTask} />
 
             </div>
         </Modal>

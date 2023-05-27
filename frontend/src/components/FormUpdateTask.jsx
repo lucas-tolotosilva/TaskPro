@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { listTags, listStatus, listCategoria } from '../actions/tcsActions'
-import { createTask } from '../actions/tarefaActions'
+import { updateTask } from '../actions/tarefaActions'
 import { useNavigate } from 'react-router-dom'
 
-export function FormUpdateTask() {
-    const [nomeTarefa, setNomeTarefa] = useState('')
-    const [selectedTag, setSelectedTag] = useState()
-    const [selectedCategoria, setSelectedCategoria] = useState()
-    const [selectedStatus, setSelectedStatus] = useState()
-    const [descricaoTarefa, setDescricaoTarefa] = useState()
+export function FormUpdateTask({ selectedTask }) {
+    const [nomeTarefa, setNomeTarefa] = useState(selectedTask && selectedTask.nome)
+    const [selectedTag, setSelectedTag] = useState(selectedTask && selectedTask.nomeTag)
+    const [selectedCategoria, setSelectedCategoria] = useState(selectedTask && selectedTask.categoria)
+    const [selectedStatus, setSelectedStatus] = useState(selectedTask && selectedTask.status)
+    const [descricaoTarefa, setDescricaoTarefa] = useState(selectedTask && selectedTask.descricao)
 
     var idTag;
     var idStatus;
@@ -58,7 +58,7 @@ export function FormUpdateTask() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(createTask(nomeTarefa, idCategoria, descricaoTarefa, idStatus, userInfo.id, idTag))
+        dispatch(updateTask(nomeTarefa, idCategoria, descricaoTarefa, idStatus, userInfo.id, idTag))
         navigate('/user/tarefas/')
     }
 

@@ -14,6 +14,7 @@ import { deleteTask } from '../actions/tarefaActions'
 export function TarefasScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalUpdateIsOpen, setUpdateIsOpen] = useState(false);
+    const [selectedTask, setSelectedTask] = useState();
 
     const openModal = () => {
         setIsOpen(true)
@@ -23,7 +24,8 @@ export function TarefasScreen() {
         setIsOpen(false)
     }
 
-    const openModalUpdate = () => {
+    const openModalUpdate = (tarefa) => {
+        setSelectedTask(tarefa);
         setUpdateIsOpen(true)
     }
 
@@ -59,6 +61,7 @@ export function TarefasScreen() {
                             <th className='py-3 pl-3 rounded-tl-lg'>Prioridade</th>
                             <th>Tarefa</th>
                             <th>Descricao</th>
+                            <th>Categoria</th>
                             <th>Status</th>
                             <th></th>
                             <th className='rounded-tr-lg'></th>
@@ -70,17 +73,23 @@ export function TarefasScreen() {
                                 <td className='py-3 pl-3 '>{tarefa.nomeTag}</td>
                                 <td >{tarefa.nome}</td>
                                 <td>{tarefa.descricao}</td>
+                                <td>{tarefa.categoria}</td>
                                 <td>{tarefa.status}</td>
                                 <td>
-                                    <button onClick={openModalUpdate}>
+                                    <button onClick={() => openModalUpdate(tarefa)}>
                                         <img className='mx-2 w-5' src={iEdit} />
                                     </button>
-                                    <UpdateTask closeModalUpdate={closeModalUpdate} modalUpdateIsOpen={modalUpdateIsOpen} />
+
                                 </td>
                                 <td><img className='mx-2 w-5 hover:cursor-pointer' onClick={() => handleDelete(tarefa.idTarefa)} src={iDelete} /></td>
                             </tr>
                         ))}
                     </tbody>
+                    <UpdateTask
+                        selectedTask={selectedTask}
+                        closeModalUpdate={closeModalUpdate}
+                        modalUpdateIsOpen={modalUpdateIsOpen}
+                    />
                 </table>
             </div>
         </div>
