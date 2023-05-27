@@ -1,27 +1,27 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal';
-import { FormCreateTask } from '../components/FormCreateTask'
+import { FormUpdateTask } from '../components/FormUpdateTask'
 
 import btnClose from '../assets/close.png'
 
-export function CreateTask({ modalIsOpen, closeModal }) {
+export function UpdateTask({ modalUpdateIsOpen, closeModalUpdate }) {
 
     Modal.setAppElement('#root');
 
     const handleCloseModal = () => {
-        closeModal()
+        closeModalUpdate()
     }
 
     return (
         <Modal
-            isOpen={modalIsOpen}
+            isOpen={modalUpdateIsOpen}
             onRequestClose={handleCloseModal}
         >
             <div className='relative'>
                 <button className='absolute top-1 right-1 w-3' onClick={handleCloseModal}>
                     <img src={btnClose} />
                 </button>
-                <FormCreateTask />
+                <FormUpdateTask />
 
             </div>
         </Modal>

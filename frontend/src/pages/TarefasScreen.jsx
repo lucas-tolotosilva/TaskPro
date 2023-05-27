@@ -8,10 +8,12 @@ import iDelete from '../assets/delete.png'
 import iEdit from '../assets/edit.png'
 import iAdd from '../assets/botao-adicionar.png'
 import { CreateTask } from '../components/CreateTaskModal'
+import { UpdateTask } from '../components/UpdateTaskModal'
 import { deleteTask } from '../actions/tarefaActions'
 
 export function TarefasScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [modalUpdateIsOpen, setUpdateIsOpen] = useState(false);
 
     const openModal = () => {
         setIsOpen(true)
@@ -19,6 +21,14 @@ export function TarefasScreen() {
 
     const closeModal = () => {
         setIsOpen(false)
+    }
+
+    const openModalUpdate = () => {
+        setUpdateIsOpen(true)
+    }
+
+    const closeModalUpdate = () => {
+        setUpdateIsOpen(false)
     }
 
     const dispatch = useDispatch()
@@ -61,7 +71,12 @@ export function TarefasScreen() {
                                 <td >{tarefa.nome}</td>
                                 <td>{tarefa.descricao}</td>
                                 <td>{tarefa.status}</td>
-                                <td><img className='mx-2 w-5' src={iEdit} /></td>
+                                <td>
+                                    <button onClick={openModalUpdate}>
+                                        <img className='mx-2 w-5' src={iEdit} />
+                                    </button>
+                                    <UpdateTask closeModalUpdate={closeModalUpdate} modalUpdateIsOpen={modalUpdateIsOpen} />
+                                </td>
                                 <td><img className='mx-2 w-5 hover:cursor-pointer' onClick={() => handleDelete(tarefa.idTarefa)} src={iDelete} /></td>
                             </tr>
                         ))}

@@ -44,7 +44,7 @@ export function RegisterScreen() {
             <Header />
             <div className='w-full flex justify-center pt-10 relative'>
                 <form onSubmit={submitHandler}>
-                    <div className='w-[800px] h-[700px] bg-[#ecffd8] flex justify-center relative'>
+                    <div className='w-[800px] h-[600px] bg-[#ecffd8] flex justify-center relative mb-20'>
                         {message && <Message>{message}</Message>}
                         {error && <Message>{error}</Message>}
                         <div className='w-full flex flex-col items-center gap-10 justify-center pl-10  font-poppins'>

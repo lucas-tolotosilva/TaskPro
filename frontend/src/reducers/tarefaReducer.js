@@ -10,6 +10,10 @@ import {
     TAREFA_DELETE_REQUEST,
     TAREFA_DELETE_SUCCESS,
     TAREFA_DELETE_FAIL,
+
+    TAREFA_UPDATE_REQUEST,
+    TAREFA_UPDATE_SUCCESS,
+    TAREFA_UPDATE_FAIL,
 } from '../constants/tarefaConstants'
 
 const tarefaFromStorage = localStorage.getItem('tarefas') ?
@@ -57,6 +61,23 @@ export const tarefaDeleteReducer = (state = {}, action) => {
             return { loading: false, tarefas: action.payload }
 
         case TAREFA_DELETE_FAIL:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+
+    }
+}
+
+export const tarefaUpdateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case TAREFA_UPDATE_REQUEST:
+            return { loading: true }
+
+        case TAREFA_UPDATE_SUCCESS:
+            return { loading: false, tarefas: action.payload }
+
+        case TAREFA_UPDATE_FAIL:
             return { loading: false, error: action.payload }
 
         default:
