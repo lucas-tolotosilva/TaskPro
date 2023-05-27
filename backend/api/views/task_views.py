@@ -39,25 +39,17 @@ def deleteTask(request, pk):
         tarefa.delete()
         return Response('Tarefa Removida')
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def detailTask(request, id):
+@api_view(['PUT'])
+def updateTask(request, pk):
     try:
-        tarefa = Tarefa.objects.get(idTarefa=id)
-    except Tarefa.DoesNotExist:
-        message = {'detail': 'Tarefa não existe'}
-        return Response(message, status = status.HTTP_400_BAD_REQUEST)
-
-    if request.method == 'GET':
-        serializer = TarefaSerializer(tarefa)
-        return Response(serializer.data)
-    
-    elif request.method == 'PUT':
-        serializer = TarefaSerializer(tarefa, data=request.data)
+        tarefa = Tarefa.objects.get(pk=pk)
+        serializer = CreateTarefaSerializer(tarefa, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-    
-    elif request.method == 'DELETE':
-        tarefa.delete()
-        return Response(status=204)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Tarefa.DoesNotExist:
+        return Response({'detail': 'Tarefa não encontrada.'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception:
+        return Response({'detail': 'Não foi possível atualizar a tarefa.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
