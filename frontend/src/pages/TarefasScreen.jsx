@@ -15,6 +15,7 @@ export function TarefasScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalUpdateIsOpen, setUpdateIsOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState();
+    const [orderValue, setOrderValue] = useState();
 
     const openModal = () => {
         setIsOpen(true)
@@ -43,18 +44,30 @@ export function TarefasScreen() {
         dispatch(deleteTask(id))
     }
 
+    const handleOrder = (e) => {
+        setOrderValue(e.target.value)
+    }
+
     useEffect(() => {
         dispatch(listTarefas())
     }, [dispatch])
-
+    console.log(orderValue)
     return (
         <div className='bg-[#EDF2E3] min-h-screen'>
             <Header />
             <div className='w-full h-full flex flex-col items-center gap-6 justify-center mt-6'>
-                <div className="w-3/4">
+                <div className="w-3/4 flex gap-3 items-center">
                     <button onClick={openModal} className='border-2 p-2 rounded-full flex items-center gap-3 border-[#408d89]'>Criar Nova Tarefa <img className='w-5' src={iAdd} /></button>
+                    <label>Ordenar por: </label>
+                    <select onChange={handleOrder} value={orderValue} className='p-1 rounded-lg text-gray'>
+                        <option className='text-black'>Tag</option>
+                        <option className='text-black'>Status</option>
+                        <option className='text-black'>Categoria</option>
+                    </select>
                 </div>
                 <CreateTask closeModal={closeModal} modalIsOpen={modalIsOpen} />
+
+
                 <table className='table-auto w-3/4 text-left rounded-lg'>
                     <thead className='bg-[#408d89] px-10'>
                         <tr className='text-white'>
