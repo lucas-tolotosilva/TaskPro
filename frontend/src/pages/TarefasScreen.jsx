@@ -152,6 +152,7 @@ export function TarefasScreen() {
                     <div className='w-3/4 justify-start mt-10'>
                         <label>Escolha o nível de Urgência: </label>
                         <select onChange={handleOrderTag} value={orderTag} className='p-1 rounded-lg text-gray'>
+                            <option value="" className='text-black'></option>
                             <option value="Alta Urgência" className='text-black'>Alta Urgência</option>
                             <option value="Média Urgência" className='text-black'>Média Urgência</option>
                             <option value="Baixa Urgência" className='text-black'>Baixa Urgência</option>
@@ -163,6 +164,7 @@ export function TarefasScreen() {
                     <div className='w-3/4 justify-start mt-10'>
                         <label>Escolha a Categoria a ser exibida: </label>
                         <select onChange={handleOrderCategoria} value={orderCategoria} className='p-1 rounded-lg text-gray'>
+                            <option value="" className='text-black'></option>
                             <option value="Casa" className='text-black'>Casa</option>
                             <option value="Academia" className='text-black'>Academia</option>
                             <option value="Escola" className='text-black'>Escola</option>
@@ -174,6 +176,7 @@ export function TarefasScreen() {
                     <div className='w-3/4 justify-start mt-10'>
                         <label>Escolha o Status: </label>
                         <select onChange={handleOrderStatus} value={orderStatus} className='p-1 rounded-lg text-gray'>
+                            <option value="" className='text-black'></option>
                             <option value="Parado" className='text-black'>Parado</option>
                             <option value="Em andamento" className='text-black'>Em andamento</option>
                             <option value="Finalizado" className='text-black'>Finalizado</option>
