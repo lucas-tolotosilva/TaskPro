@@ -26,6 +26,9 @@ export function Header() {
                 {userInfo ? (
                     <div className='flex items-center gap-12'>
                         <div className='flex items-center gap-2 text-white text-[18px] font-normal font-poppins'>
+                            <span className='hover:cursor-pointer' ><Link to="/user/tarefas">Tarefas</Link></span>
+                        </div>
+                        <div className='flex items-center gap-2 text-white text-[18px] font-normal font-poppins'>
                             <FaUser className='hover:cursor-pointer' /><Link to="/">{userInfo.name}</Link>
                         </div>
                         <div className='flex items-center gap-2 text-white text-[18px] font-normal font-poppins'>

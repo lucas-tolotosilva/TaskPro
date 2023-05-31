@@ -18,6 +18,8 @@ export function TarefasScreen() {
     const [orderTarefas, setOrderTarefas] = useState();
     const [orderValue, setOrderValue] = useState();
     const [orderTag, setOrderTag] = useState();
+    const [orderCategoria, setOrderCategoria] = useState();
+    const [orderStatus, setOrderStatus] = useState();
 
     const openModal = () => {
         setIsOpen(true)
@@ -50,11 +52,34 @@ export function TarefasScreen() {
         setOrderValue(e.target.value)
     }
 
-    console.log(orderValue)
-
     const handleOrderTag = (e) => {
         setOrderTag(e.target.value)
     }
+
+    const handleOrderCategoria = (e) => {
+        setOrderCategoria(e.target.value)
+    }
+
+    const handleOrderStatus = (e) => {
+        setOrderStatus(e.target.value)
+    }
+
+    useEffect(() => {
+        let orderedTasks = [];
+
+        if (orderCategoria === 'Casa') {
+            orderedTasks = tarefas.filter(tarefa => tarefa.categoria === 'Casa');
+        } else if (orderCategoria === 'Escola') {
+            orderedTasks = tarefas.filter(tarefa => tarefa.categoria === 'Escola');
+        } else if (orderCategoria === 'Academia') {
+            orderedTasks = tarefas.filter(tarefa => tarefa.categoria === 'Academia');
+        } else {
+            orderedTasks = tarefas; // Caso nenhuma opção seja selecionada, mantenha a ordem original
+        }
+
+        setOrderTarefas(orderedTasks);
+    }, [orderTag, orderCategoria, tarefas]);
+
 
     useEffect(() => {
         let orderedTasks = [];
@@ -73,7 +98,37 @@ export function TarefasScreen() {
     }, [orderTag, tarefas]);
 
     useEffect(() => {
+        let orderedTasks = [];
+
+        if (orderStatus === 'Parado') {
+            orderedTasks = tarefas.filter(tarefa => tarefa.status === 'Parado');
+        } else if (orderStatus === 'Em andamento') {
+            orderedTasks = tarefas.filter(tarefa => tarefa.status === 'Em andamento');
+        } else if (orderStatus === 'Finalizado') {
+            orderedTasks = tarefas.filter(tarefa => tarefa.status === 'Finalizado');
+        } else {
+            orderedTasks = tarefas; // Caso nenhuma opção seja selecionada, mantenha a ordem original
+        }
+
+        setOrderTarefas(orderedTasks);
+    }, [orderStatus, tarefas]);
+
+
+    useEffect(() => {
+        let orderedTasks = [];
+
+        if (orderValue === 'Todos') {
+            orderedTasks = tarefas
+        }
+
+        setOrderTarefas(orderedTasks);
+
+    }, [orderValue])
+
+    useEffect(() => {
+
         dispatch(listTarefas())
+
     }, [dispatch])
 
     return (
@@ -102,7 +157,28 @@ export function TarefasScreen() {
                             <option value="Baixa Urgência" className='text-black'>Baixa Urgência</option>
                         </select>
                     </div> : null
+                }
 
+                {orderValue === 'Categoria' ?
+                    <div className='w-3/4 justify-start mt-10'>
+                        <label>Escolha a Categoria a ser exibida: </label>
+                        <select onChange={handleOrderCategoria} value={orderCategoria} className='p-1 rounded-lg text-gray'>
+                            <option value="Casa" className='text-black'>Casa</option>
+                            <option value="Academia" className='text-black'>Academia</option>
+                            <option value="Escola" className='text-black'>Escola</option>
+                        </select>
+                    </div> : null
+                }
+
+                {orderValue === 'Status' ?
+                    <div className='w-3/4 justify-start mt-10'>
+                        <label>Escolha o Status: </label>
+                        <select onChange={handleOrderStatus} value={orderStatus} className='p-1 rounded-lg text-gray'>
+                            <option value="Parado" className='text-black'>Parado</option>
+                            <option value="Em andamento" className='text-black'>Em andamento</option>
+                            <option value="Finalizado" className='text-black'>Finalizado</option>
+                        </select>
+                    </div> : null
                 }
 
 
