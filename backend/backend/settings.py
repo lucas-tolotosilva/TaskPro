@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7djbd91vt+$v!6zte-sahxzt#*)v@)i5&xbfd+@z3so=r@+pt9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'https://taskpro.herokuapp.com/', '.vercel.app']
 CORS_ORIGIN_ALLOW_ALL = True
