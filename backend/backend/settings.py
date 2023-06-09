@@ -134,10 +134,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mydb',
+        'NAME': 'calculadora',
         'USER': 'lucasdev',
         'PASSWORD': 'lucas123',
-        'HOST':'taskpro.cxh46t2etyk4.us-east-2.rds.amazonaws.com',
+        'HOST':'127.0.0.1',
         'PORT':'3306',
     }
 }

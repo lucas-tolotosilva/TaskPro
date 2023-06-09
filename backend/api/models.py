@@ -1,35 +1,17 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-class Categoria(models.Model):
-    descricao = models.CharField(max_length=45)
-    idCategoria = models.AutoField(primary_key=True, editable=False)
+class Investimento(models.Model):
+    valor_inicial = models.DecimalField(max_digits=10, decimal_places=2)
+    taxa_juros = models.DecimalField(max_digits=5, decimal_places=2)
+    periodo = models.IntegerField()
+    retorno = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
-    def __str__(self):
-        return self.descricao
+    def calcular_retorno(self):
+        taxa_decimal = self.taxa_juros / 100
+        retorno = self.valor_inicial * ((1 + taxa_decimal) ** self.periodo - 1)
+        return round(retorno, 2)
 
-class Tag(models.Model):
-    nomeTag = models.CharField(max_length=45)
-    idTag = models.AutoField(primary_key=True, editable=False)
-
-    def __str__(self):
-        return self.nomeTag
-
-class Status(models.Model):
-    status = models.CharField(max_length=45, null=True, blank=True)
-    idStatus = models.AutoField(primary_key=True, editable=False)
-    def __str__(self):
-        return self.status
-
-class Tarefa(models.Model):
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, null=False, blank=True)
-    status = models.ForeignKey(Status, on_delete=models.CASCADE,blank=True, null=True)
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE,blank=True, null=True)
-    nome = models.CharField(max_length=45, null=True, blank=True)
-    descricao = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    idTarefa = models.AutoField(primary_key=True, editable=False)
-
-    def __str__(self):
-        return self.nome
+    def save(self, *args, **kwargs):
+        self.retorno = self.calcular_retorno()
+        super().save(*args, **kwargs)

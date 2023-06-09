@@ -7,14 +7,12 @@ import { TarefasScreen } from './pages/TarefasScreen'
 
 export function App() {
     return (
-        <HashRouter>
-            <Routes>
-                <Route path='/' Component={HomeScreen} exact />
-                <Route path='/login' Component={LoginScreen} />
-                <Route path='/register' Component={RegisterScreen} />
-                <Route path='/user/tarefas' Component={TarefasScreen} />
-            </Routes>
-        </HashRouter>
+        <Routes>
+            <Route path='/' Component={HomeScreen} exact />
+            <Route path='/login' Component={LoginScreen} />
+            <Route path='/register' Component={RegisterScreen} />
+            <Route path='/user/tarefas' Component={TarefasScreen} />
+        </Routes>
 
     )
 }

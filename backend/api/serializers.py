@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from rest_framework_simplejwt.tokens import RefreshToken 
-from .models import Categoria, Tarefa, Tag, Status
+from rest_framework_simplejwt.tokens import RefreshToken
+from .models import Investimento
 
 class UserSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField(read_only = True)
@@ -32,55 +32,26 @@ class UserSerializerWithToken(UserSerializer):
         token = RefreshToken.for_user(obj)
         return str(token.access_token)
 
-class CategoriaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Categoria
-        fields = '__all__'
 
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tag
-        fields = '__all__'
 
-class StatusSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Status
-        fields = '__all__'
-
-class TarefaSerializer(serializers.ModelSerializer):
-    nomeUsuario = serializers.SerializerMethodField(read_only = True)
-    nomeTag = serializers.SerializerMethodField(read_only = True)
-    status = serializers.SerializerMethodField(read_only = True)
-    categoria = serializers.SerializerMethodField(read_only = True)
-
-    def get_nomeUsuario(self, obj):
-        name = obj.usuario.first_name
-        if name == '':
-            name = obj.usuario.email
-        
-        return name
-
-    def get_nomeTag(self, obj):
-        return obj.tag.nomeTag
-    
-    def get_status(self, obj):
-        return obj.status.status
-    
-    def get_categoria(self, obj):
-        return obj.categoria.descricao
-
+class InvestimentoSerializer(serializers.ModelSerializer):
+    valor_inicial = serializers.DecimalField(max_digits=10, decimal_places=2)
+    taxa_juros = serializers.DecimalField(max_digits=5, decimal_places=4)
+    periodo = serializers.IntegerField(min_value=1)
+    valor_total = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
 
     class Meta:
-        model = Tarefa
-        fields = ['idTarefa', 'nome', 'categoria', 'descricao', 'status', 'nomeUsuario', 'nomeTag']
+        model = Investimento
+        fields = ('id', 'valor_inicial', 'taxa_juros', 'periodo', 'valor_total')
 
+    def create(self, validated_data):
+        valor_inicial = validated_data.get('valor_inicial')
+        taxa_juros = validated_data.get('taxa_juros')
+        periodo = validated_data.get('periodo')
+        valor_total = self.calcular_valor_total(valor_inicial, taxa_juros, periodo)
+        investimento = Investimento.objects.create(valor_inicial=valor_inicial, taxa_juros=taxa_juros, periodo=periodo, valor_total=valor_total)
+        return investimento
 
-class CreateTarefaSerializer(serializers.ModelSerializer):
-    idUsuario = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), source='usuario')
-    idTag = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), source='tag')
-    idStatus = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all(), source='status')
-    idCategoria = serializers.PrimaryKeyRelatedField(queryset=Categoria.objects.all(), source='categoria')
-
-    class Meta:
-        model = Tarefa
-        fields = ['idTarefa', 'nome', 'idCategoria', 'descricao', 'idStatus', 'idUsuario', 'idTag']
+    def calcular_valor_total(self, valor_inicial, taxa_juros, periodo):
+        valor_total = valor_inicial * (1 + taxa_juros) ** periodo
+        return round(valor_total, 2)

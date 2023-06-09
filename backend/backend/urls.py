@@ -25,7 +25,7 @@ urlpatterns = [
     
     path('api/users/', include('api.urls.user_urls')),
 
-    path('api/tarefas/', include('api.urls.task_urls')),
+    path('api/investimentos/', include('api.urls.investimentos_urls')),
 
-    path('api/get/', include('api.urls.tcs_urls'))
+    # path('api/get/', include('api.urls.tcs_urls'))
 ]
