@@ -6,6 +6,7 @@ class Investimento(models.Model):
     taxa_juros = models.DecimalField(max_digits=5, decimal_places=2)
     periodo = models.IntegerField()
     retorno = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    valor_total = models.DecimalField(max_digits=20, decimal_places=8, blank=True)
 
     def calcular_retorno(self):
         taxa_decimal = self.taxa_juros / 100
@@ -15,3 +16,5 @@ class Investimento(models.Model):
     def save(self, *args, **kwargs):
         self.retorno = self.calcular_retorno()
         super().save(*args, **kwargs)
+
+        

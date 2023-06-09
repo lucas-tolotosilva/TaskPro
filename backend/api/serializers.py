@@ -44,14 +44,17 @@ class InvestimentoSerializer(serializers.ModelSerializer):
         model = Investimento
         fields = ('id', 'valor_inicial', 'taxa_juros', 'periodo', 'valor_total')
 
-    def create(self, validated_data):
-        valor_inicial = validated_data.get('valor_inicial')
-        taxa_juros = validated_data.get('taxa_juros')
-        periodo = validated_data.get('periodo')
-        valor_total = self.calcular_valor_total(valor_inicial, taxa_juros, periodo)
-        investimento = Investimento.objects.create(valor_inicial=valor_inicial, taxa_juros=taxa_juros, periodo=periodo, valor_total=valor_total)
-        return investimento
+    
+    def validate(self, attrs):
+        valor_inicial = attrs.get('valor_inicial')
+        taxa_juros = attrs.get('taxa_juros')
+        periodo = attrs.get('periodo')
 
-    def calcular_valor_total(self, valor_inicial, taxa_juros, periodo):
+        valor_total = self.get_valor_total(valor_inicial, taxa_juros, periodo)
+        attrs['valor_total'] = valor_total
+
+        return attrs
+
+    def get_valor_total(self, valor_inicial, taxa_juros, periodo):
         valor_total = valor_inicial * (1 + taxa_juros) ** periodo
         return round(valor_total, 2)
