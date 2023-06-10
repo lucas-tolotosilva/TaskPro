@@ -1,26 +1,26 @@
 import axios from 'axios'
 import {
-    TAREFA_LIST_REQUEST,
-    TAREFA_LIST_SUCCESS,
-    TAREFA_LIST_FAIL,
+    INVESTIMENTO_LIST_REQUEST,
+    INVESTIMENTO_LIST_SUCCESS,
+    INVESTIMENTO_LIST_FAIL,
 
-    TAREFA_REGISTER_REQUEST,
-    TAREFA_REGISTER_SUCCESS,
-    TAREFA_REGISTER_FAIL,
+    INVESTIMENTO_REGISTER_REQUEST,
+    INVESTIMENTO_REGISTER_SUCCESS,
+    INVESTIMENTO_REGISTER_FAIL,
 
-    TAREFA_DELETE_REQUEST,
-    TAREFA_DELETE_SUCCESS,
-    TAREFA_DELETE_FAIL,
+    INVESTIMENTO_DELETE_REQUEST,
+    INVESTIMENTO_DELETE_SUCCESS,
+    INVESTIMENTO_DELETE_FAIL,
 
-    TAREFA_UPDATE_REQUEST,
-    TAREFA_UPDATE_SUCCESS,
-    TAREFA_UPDATE_FAIL,
-} from '../constants/tarefaConstants'
+    INVESTIMENTO_UPDATE_REQUEST,
+    INVESTIMENTO_UPDATE_SUCCESS,
+    INVESTIMENTO_UPDATE_FAIL,
+} from '../constants/investimentoConstants'
 
-export const listTarefas = () => async (dispatch, getState) => {
+export const listInvestimento = () => async (dispatch, getState) => {
     try {
         dispatch({
-            type: TAREFA_LIST_REQUEST
+            type: INVESTIMENTO_LIST_REQUEST
         })
 
         const {
@@ -36,18 +36,18 @@ export const listTarefas = () => async (dispatch, getState) => {
         }
 
         const { data } = await axios.get(
-            'http://127.0.0.1:8000/api/tarefas/',
+            'http://127.0.0.1:8000/api/investimentos/',
             config
         )
 
         dispatch({
-            type: TAREFA_LIST_SUCCESS,
+            type: INVESTIMENTO_LIST_SUCCESS,
             payload: data
         })
 
     } catch (error) {
         dispatch({
-            type: TAREFA_LIST_FAIL,
+            type: INVESTIMENTO_LIST_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
@@ -55,10 +55,10 @@ export const listTarefas = () => async (dispatch, getState) => {
     }
 }
 
-export const createTask = (nome, categoria, descricao, status, usuario, tag) => async (dispatch) => {
+export const createInvestimento = (valor_inicial, taxa_juros, periodo) => async (dispatch) => {
     try {
         dispatch({
-            type: TAREFA_REGISTER_REQUEST
+            type: INVESTIMENTO_REGISTER_REQUEST
         })
 
         const config = {
@@ -68,27 +68,23 @@ export const createTask = (nome, categoria, descricao, status, usuario, tag) => 
         }
 
         const { data } = await axios.post(
-            'http://127.0.0.1:8000/api/tarefas/create/',
+            'http://127.0.0.1:8000/api/investimentos/create/',
             {
-                'nome': nome,
-                'idCategoria': categoria,
-                'descricao': descricao,
-                'idStatus': status,
-                'idUsuario': usuario,
-                'idTag': tag
+                'valor_inicial': valor_inicial,
+                'taxa_juros': taxa_juros,
+                'periodo': periodo
             },
             config
         )
-        console.log(data)
 
         dispatch({
-            type: TAREFA_REGISTER_SUCCESS,
+            type: INVESTIMENTO_REGISTER_SUCCESS,
             payload: data
         })
 
     } catch (error) {
         dispatch({
-            type: TAREFA_REGISTER_FAIL,
+            type: INVESTIMENTO_REGISTER_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
@@ -96,10 +92,10 @@ export const createTask = (nome, categoria, descricao, status, usuario, tag) => 
     }
 }
 
-export const updateTask = (id, nome, categoria, descricao, status, usuario, tag) => async (dispatch) => {
+export const updateInvestimento = (id, nome, categoria, descricao, status, usuario, tag) => async (dispatch) => {
     try {
         dispatch({
-            type: TAREFA_UPDATE_REQUEST
+            type: INVESTIMENTO_UPDATE_REQUEST
         })
 
         const config = {
@@ -122,13 +118,13 @@ export const updateTask = (id, nome, categoria, descricao, status, usuario, tag)
         )
 
         dispatch({
-            type: TAREFA_UPDATE_SUCCESS,
+            type: INVESTIMENTO_UPDATE_SUCCESS,
             payload: data
         })
 
     } catch (error) {
         dispatch({
-            type: TAREFA_UPDATE_FAIL,
+            type: INVESTIMENTO_UPDATE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
@@ -136,10 +132,10 @@ export const updateTask = (id, nome, categoria, descricao, status, usuario, tag)
     }
 }
 
-export const deleteTask = (id) => async (dispatch) => {
+export const deleteInvestimento = (id) => async (dispatch) => {
     try {
         dispatch({
-            type: TAREFA_DELETE_REQUEST
+            type: INVESTIMENTO_DELETE_REQUEST
         })
 
         const config = {
@@ -154,13 +150,13 @@ export const deleteTask = (id) => async (dispatch) => {
         )
 
         dispatch({
-            type: TAREFA_UPDATE_SUCCESS,
+            type: INVESTIMENTO_DELETE_SUCCESS,
             payload: data
         })
 
     } catch (error) {
         dispatch({
-            type: TAREFA_UPDATE_FAIL,
+            type: INVESTIMENTO_DELETE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
