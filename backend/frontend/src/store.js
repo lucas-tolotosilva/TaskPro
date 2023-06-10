@@ -3,18 +3,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducer'
-import { tarefaReducer, tarefaRegisterReducer, tarefaDeleteReducer } from './reducers/tarefaReducer'
-import { tagReducer, statusReducer, categoriaReducer } from './reducers/tcsReducer'
+import { investimentoReducer, investimentoRegisterReducer, investimentoDeleteReducer } from './reducers/investimentoReducer'
 
 const reducer = combineReducers({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
-    tarefaList: tarefaReducer,
-    tarefaCreate: tarefaRegisterReducer,
-    tarefaDelete: tarefaDeleteReducer,
-    tagList: tagReducer,
-    statusList: statusReducer,
-    categoriaList: categoriaReducer
+    investimentoList: investimentoReducer,
+    investimentoCreate: investimentoRegisterReducer,
+    investimentoDelete: investimentoDeleteReducer
 })
 
 const middleware = [thunk]
